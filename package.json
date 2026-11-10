@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "opencode-git-plugin",
-  "version": "0.3.0",
+  "name": "@cardinal4/opencode-git-plugin",
+  "version": "0.3.1",
   "description": "OpenCode v2 TUI sidebar plugin listing git working-copy changes with diff preview",
   "type": "module",
   "exports": {
@@ -48,11 +48,11 @@
   "author": "Aktug Urun",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aktug/opencode-git-plugin.git"
+    "url": "git+https://github.com/cardin/opencode-git-plugin.git"
   },
-  "homepage": "https://github.com/aktug/opencode-git-plugin#readme",
+  "homepage": "https://github.com/cardin/opencode-git-plugin#readme",
   "bugs": {
-    "url": "https://github.com/aktug/opencode-git-plugin/issues"
+    "url": "https://github.com/cardin/opencode-git-plugin/issues"
   },
   "engines": {
     "opencode": ">=2.0.0 <3"

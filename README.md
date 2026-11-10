@@ -32,7 +32,7 @@ The plugin runs Git through OpenCode's local shell API. It does not contact an e
 Install the published package with OpenCode:
 
 ```sh
-opencode plugin add opencode-git-plugin
+opencode plugin add @cardinal4/opencode-git-plugin
 ```
 
 Git Panel is a TUI-only plugin, so `opencode plugin add` registers it in `~/.config/opencode/cli.json`. It stays active when the TUI connects to a remote server.
@@ -55,7 +55,7 @@ opencode plugin update
 ### Uninstall
 
 ```sh
-opencode plugin remove opencode-git-plugin
+opencode plugin remove @cardinal4/opencode-git-plugin
 ```
 
 ### Local development

@@ -26,7 +26,9 @@ export function DiffPanel(props: { ctx: Context; input: PanelInput }) {
   }
   const isSyntaxViewActive = () =>
     settings.syntax && !diffState.truncated && diffState.query === "" && diffState.patch !== ""
-  const syntaxHighlightStyle = createMemo(() => (settings.syntax ? generateSyntax(theme) : undefined))
+  const syntaxHighlightStyle = createMemo(() =>
+    settings.syntax ? generateSyntax(theme, ctx.renderer.nativeScene) : undefined,
+  )
   const search = createDiffSearch(diffState)
 
   createEffect(() => {
