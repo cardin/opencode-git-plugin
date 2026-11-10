@@ -22,17 +22,17 @@
     "prepublishOnly": "bun run check"
   },
   "dependencies": {
-    "@opencode/plugin": "^2.0.21",
-    "@opencode/theme": "^2.0.21"
+    "@opencode/plugin": "^2.2.6",
+    "@opencode/theme": "^2.2.6"
   },
   "peerDependencies": {
-    "@opentui/core": ">=0.5.14",
-    "@opentui/solid": ">=0.5.14",
+    "@opentui/core": ">=0.8.1",
+    "@opentui/solid": ">=0.8.1",
     "solid-js": ">=1.9.0"
   },
   "devDependencies": {
-    "@opentui/core": "0.5.14",
-    "@opentui/solid": "0.5.14",
+    "@opentui/core": "0.8.1",
+    "@opentui/solid": "0.8.1",
     "solid-js": "1.9.12",
     "typescript": "^5.6.0"
   },

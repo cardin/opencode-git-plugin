@@ -1,0 +1,63 @@
+name: publish
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish @cardinal4/opencode-git-plugin
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Required for npm trusted publishing (OIDC). No NPM_TOKEN secret needed
+      # once the trusted publisher is configured for this repo on npmjs.com.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Node 24 ships npm >= 11.5.1, the first version with trusted publishing.
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - run: bun install --frozen-lockfile
+
+      - run: bun run check
+
+      - name: Check whether this version is already published
+        id: version
+        run: |
+          name=$(node -p "require('./package.json').name")
+          version=$(node -p "require('./package.json').version")
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if npm view "$name@$version" version >/dev/null 2>&1; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::$name@$version is already on npm; skipping publish. Bump the version to release."
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::$name@$version is new; publishing."
+          fi
+
+      - name: Publish to npm
+        if: steps.version.outputs.publish == 'true'
+        run: npm publish --access public
+
+      # Fallback if you prefer a granular npm token over trusted publishing:
+      # remove `id-token: write` above, add the NPM_TOKEN repository secret,
+      # and set `env: { NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} }` on the
+      # publish step.
